@@ -17,7 +17,7 @@
         <div class="w-full px-4 font-bold">每包 (顆 / 克)</div>
         <div class="w-full px-4 font-bold">售價</div>
         <div class="w-full px-4 font-bold">需要份量</div>
-        <div class="w-full px-4 font-bold">單顆所需成本</div>
+        <div class="w-full px-4 font-bold">成本</div>
         <div class="w-full px-4 font-bold"></div>
       </div>
 
@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import IngredientInput from './components/IngredientInput.vue';
 
 interface Ingredient {
@@ -77,20 +77,6 @@ const addIngredient = () => {
 const deleteIngredient = (idx: number) => {
   ingredients.value.splice(idx, 1);
 };
-
-const calcUnit = () => {
-  ingredients.value.forEach((item) => {
-    if (item.price && item.totalAmount && item.need) {
-      item.unit = parseFloat(
-        ((item.price / item.totalAmount) * item.need).toFixed(2)
-      );
-    }
-  });
-};
-
-watch(ingredients, () => {
-  calcUnit();
-});
 
 onMounted(() => {
   console.log('start');
